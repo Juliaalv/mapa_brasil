@@ -17,7 +17,7 @@ df["Longitude"] = df["Longitude"].str.replace(",", ".", regex=True).astype(float
 df = df.dropna(subset=["Latitude", "Longitude"])
 
 # Título do App
-st.title("Mapa de Empreendimentos de Geração de Energia Eólica e Solar no Brasil")
+st.title("Geração de Energia Eólica e Solar no Brasil")
 
 # Filtro interativo
 tipos_disponiveis = ["EOL", "UFV"]
