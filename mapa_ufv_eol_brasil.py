@@ -9,7 +9,7 @@ def load_data():
     geracao_5 = pd.read_csv("df_ger_brasil_5_ufv_eol.csv")
     return geracao_75, geracao_5
 
-# Carregar os dados
+
 geracao_75, geracao_5 = load_data()
 
 # Sidebar para seleção do tipo de geração
@@ -19,21 +19,19 @@ opcao_geracao = st.sidebar.radio("Selecione a faixa de geração:", ["Geração 
 # Definir os dados conforme a opção escolhida
 dados_geracao = geracao_75.copy() if opcao_geracao == "Geração ≥ 75 kW" else geracao_5.copy()
 
-# Converter Latitude e Longitude para float
 dados_geracao["Latitude"] = dados_geracao["Latitude"].astype(str).str.replace(",", ".", regex=True).astype(float)
 dados_geracao["Longitude"] = dados_geracao["Longitude"].astype(str).str.replace(",", ".", regex=True).astype(float)
 
 # Remover linhas com Latitude ou Longitude ausente
 dados_geracao.dropna(subset=["Latitude", "Longitude"], inplace=True)
 
-# Título do App
 st.title("Geração de Energia Eólica e Solar no Brasil")
 
-# Filtro interativo
+# Filtro 
 tipos_disponiveis = ["EOL", "UFV"]
 selecionados = st.multiselect("Selecione os tipos que deseja visualizar no mapa:", tipos_disponiveis, default=tipos_disponiveis)
 
-# Criar o mapa
+# mapa
 m = folium.Map(location=[-7.5, -36.5], zoom_start=7, tiles="cartodbpositron")
 
 # Grupos por tipo de geração
@@ -80,6 +78,5 @@ legend_html = """
 </div>
 """
 st.markdown(legend_html, unsafe_allow_html=True)
-
-# Mostrar o mapa
 folium_static(m, width=800, height=750)
+
